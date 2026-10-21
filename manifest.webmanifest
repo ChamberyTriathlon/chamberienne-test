@@ -1,0 +1,11 @@
+{
+  "name": "La Chambérienne 2026 — TEST",
+  "short_name": "Chambérienne TEST",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f4f6f8",
+  "theme_color": "#13283a",
+  "lang": "fr",
+  "description": "Environnement de test de gestion des bénévoles de Chambéry Triathlon"
+}
