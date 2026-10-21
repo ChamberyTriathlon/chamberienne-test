@@ -1,26 +1,89 @@
 <!doctype html>
-<html lang="fr">
-<head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#13283a">
-<title>La Chambérienne 2026 — TEST</title>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#13283a"><title>La Chambérienne 2026 — TEST</title>
 <link rel="manifest" href="./manifest.webmanifest">
 <style>
-:root{font-family:system-ui,-apple-system,sans-serif;color:#152637;background:#f4f6f8}
-*{box-sizing:border-box}body{margin:0}header{background:#13283a;color:white;padding:24px 20px}
-header p{margin:5px 0 0;color:#d6e1e8}.tag{display:inline-block;background:#ffdc3c;color:#182b38;border-radius:6px;padding:3px 8px;font-weight:750;font-size:.75rem}
-main{max-width:850px;margin:auto;padding:20px}section{background:white;border:1px solid #dde4ea;border-radius:14px;padding:20px;margin-bottom:16px}
-h1{font-size:1.6rem;margin:12px 0 0}h2{font-size:1.15rem;margin:0 0 12px}p{line-height:1.55}
-a.button{display:inline-block;background:#1b577d;color:white;text-decoration:none;border-radius:9px;padding:12px 16px;font-weight:650}
-.muted{color:#546575}.warning{border-left:4px solid #b27700;padding-left:12px}
-footer{padding:16px;text-align:center;color:#667582;font-size:.85rem}
-</style>
-</head>
-<body>
-<header><span class="tag">ENVIRONNEMENT TEST</span><h1>La Chambérienne 2026</h1><p>Gestion des bénévoles · Chambéry Triathlon</p></header>
+:root{font-family:system-ui,-apple-system,sans-serif;color:#172d40;background:#f2f5f8}*{box-sizing:border-box}body{margin:0}
+header{background:#13283a;color:#fff;padding:18px max(18px,calc((100vw - 1100px)/2))}
+header h1{font-size:1.5rem;margin:10px 0 4px}header p{margin:0;color:#cbdce7}.tag{display:inline-block;background:#ffdb3f;color:#172b3b;border-radius:5px;padding:4px 9px;font-size:.73rem;font-weight:800}
+main{max-width:1100px;margin:auto;padding:18px}section{background:#fff;border:1px solid #dae3ea;border-radius:13px;padding:17px;margin-bottom:14px}
+h2{font-size:1.08rem;margin:0 0 12px}p{line-height:1.5}.muted{color:#5e7080}.small{font-size:.85rem}
+.toolbar{display:flex;flex-wrap:wrap;gap:9px;align-items:center}.toolbar>*{flex:1 1 170px}
+input,select,button{font:inherit;border-radius:8px;padding:11px;border:1px solid #bfcdd7;background:#fff;min-width:0}
+button{cursor:pointer;background:#15577c;color:#fff;border-color:#15577c;font-weight:650}button.secondary{background:#fff;color:#15577c}button:disabled{opacity:.5;cursor:not-allowed}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-bottom:14px}.stat{background:white;border:1px solid #dae3ea;border-radius:12px;padding:13px}.stat strong{display:block;font-size:1.7rem}.stat span{font-size:.82rem;color:#5e7080}
+.notice{border-left:4px solid #c08a15;background:#fff9eb;padding:12px;margin:10px 0;border-radius:4px}
+.good{border-left-color:#27805b;background:#edf8f2}.bad{border-left-color:#ba4b4b;background:#fff1f1}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(265px,1fr));gap:10px}.post{border:1px solid #d8e2e9;border-radius:10px;padding:13px;background:#fff}.post h3{margin:0 0 8px;font-size:1rem}.post .meta{font-size:.84rem;color:#607485}.assignment{border-top:1px solid #e9eef2;padding:9px 0;font-size:.91rem}.assignment:first-of-type{margin-top:8px}.assignment b{display:block}.assignment span{color:#526575}.empty{padding:18px;color:#607485;text-align:center}
+details summary{cursor:pointer;font-weight:650}details p{font-size:.9rem}
+footer{text-align:center;padding:15px;color:#607485;font-size:.8rem}
+@media(max-width:500px){.stats{gap:6px}.stat{padding:10px}.stat strong{font-size:1.35rem}main{padding:10px}section{padding:13px}}
+</style></head>
+<body><header><span class="tag">ENVIRONNEMENT TEST</span><h1>La Chambérienne 2026</h1><p>Gestion des bénévoles · Chambéry Triathlon</p></header>
 <main>
-<section><h2>Bienvenue dans la PWA TEST</h2><p>Cette application est indépendante de la démonstration historique. Le dépôt du club est en place.</p><p class="warning"><strong>Connexion en cours de préparation.</strong> Aucun nom, horaire ou poste n'est encore chargé dans cette page. Nous ne prétendons pas disposer d'une synchronisation fonctionnelle avant validation technique et contrôle des accès.</p></section>
-<section><h2>Source de données</h2><p>La connexion au Google Sheets 2026 est en cours de sécurisation. Aucune donnée réelle n'est actuellement transmise à cette page.</p><p class="muted">La consultation des affectations sera activée après validation de l'authentification et des autorisations.</p></section>
-<section><h2>Étapes de validation</h2><p class="muted">1. Contrôler les données exposées par le connecteur. 2. Choisir une communication sécurisée compatible avec l'hébergement. 3. Ajouter l'authentification. 4. Afficher les postes et affectations dans la PWA. 5. Tester la synchronisation.</p></section>
-</main><footer>Chambéry Triathlon · Version de préparation · Aucun accès public aux affectations depuis cette page</footer>
-</body></html>
+<div id="status" class="notice" role="status">Interface prête. Aucune donnée chargée. La connexion Google Sheets reste à valider.</div>
+<div class="stats"><div class="stat"><strong id="countPosts">0</strong><span>Postes</span></div><div class="stat"><strong id="countAssignments">0</strong><span>Affectations</span></div><div class="stat"><strong id="countPeople">0</strong><span>Bénévoles affichés</span></div></div>
+<section><h2>Rechercher une affectation</h2><div class="toolbar"><input id="search" type="search" placeholder="Prénom, poste, sous-poste…" aria-label="Rechercher"><select id="postFilter" aria-label="Filtrer par poste"><option value="">Tous les postes</option></select><button id="reset" class="secondary" type="button">Effacer les filtres</button></div><p class="small muted" id="resultCount">Chargez des données pour commencer.</p></section>
+<section><h2>Postes et bénévoles</h2><div id="posts" class="grid"><div class="empty">Aucune affectation disponible pour le moment.</div></div></section>
+<section><details><summary>Connexion au Google Sheets 2026 (test technique)</summary>
+<p class="muted">Le connecteur Apps Script doit renvoyer un JSON déjà filtré. Ne collez ici ni identifiants, ni jetons, ni données personnelles. L'adresse du connecteur n'est pas enregistrée.</p>
+<div class="toolbar"><input id="endpoint" type="url" placeholder="URL HTTPS du connecteur Apps Script" aria-label="URL du connecteur"><button id="connect" type="button">Tester la connexion</button></div>
+<p class="small muted">Si le navigateur bloque la requête interdomaines, le message d'erreur sera affiché. Ce test ne contourne aucune protection Google.</p>
+</details></section>
+</main><footer>Chambéry Triathlon · PWA TEST · Prénom + initiale uniquement · Aucune donnée enregistrée sur l'appareil</footer>
+<script>
+"use strict";
+const $=id=>document.getElementById(id);let dataset={posts:[],assignments:[]};
+const text=v=>String(v??"").trim();
+function safeName(v){const s=text(v).replace(/\s+/g," ");if(!s)return "";const m=s.match(/^(.+?)\s+([A-Za-zÀ-ÿ])\.?$/u);return m?m[1]+" "+m[2].toUpperCase()+".":""}
+function pick(o,keys){for(const k of keys)if(o&&o[k]!==undefined&&o[k]!==null)return o[k];return ""}
+function parse(payload){
+const root=payload?.data??payload?.snapshot??payload;
+if(!root||typeof root!=="object")throw Error("Réponse JSON invalide");
+const rawPosts=Array.isArray(root.posts)?root.posts:Array.isArray(root.postes)?root.postes:[];
+const rawAssignments=Array.isArray(root.assignments)?root.assignments:Array.isArray(root.affectations)?root.affectations:[];
+if(!rawPosts.length&&!rawAssignments.length)throw Error("Aucun tableau posts/assignments trouvé dans la réponse");
+const posts=rawPosts.map((p,i)=>({id:text(pick(p,["id","postId","code","posteId"]))||String(i),name:text(pick(p,["name","title","poste","nom","label"]))||"Poste "+(i+1)}));
+const assignments=rawAssignments.map(a=>({
+name:safeName(pick(a,["shortName","displayName","volunteer","benevole","name","nom"])),
+post:text(pick(a,["post","postName","poste","posteNom","sector","secteur"])),
+postId:text(pick(a,["postId","posteId","sectorId"])),
+subpost:text(pick(a,["subpost","subPost","sousPoste","subposte","code"])),
+time:text(pick(a,["schedule","time","creneau","horaire","hours"]))
+})).filter(a=>a.name);
+return {posts,assignments};
+}
+function setStatus(message,type=""){const el=$("status");el.textContent=message;el.className="notice "+type}
+function render(){
+const {posts,assignments}=dataset;
+$("countPosts").textContent=posts.length;$("countAssignments").textContent=assignments.length;
+$("countPeople").textContent=new Set(assignments.map(a=>a.name)).size;
+const filter=$("postFilter"),selected=filter.value;filter.replaceChildren(new Option("Tous les postes",""));
+for(const p of posts)filter.add(new Option(p.name,p.id));
+if([...filter.options].some(o=>o.value===selected))filter.value=selected;
+const q=$("search").value.trim().toLocaleLowerCase("fr");const selectedPost=filter.value;
+const shown=posts.filter(p=>!selectedPost||p.id===selectedPost).map(p=>({
+p,items:assignments.filter(a=>(a.postId&&a.postId===p.id||!a.postId&&a.post===p.name)&&(!q||[p.name,a.name,a.subpost,a.time].join(" ").toLocaleLowerCase("fr").includes(q)))
+})).filter(x=>!q||x.p.name.toLocaleLowerCase("fr").includes(q)||x.items.length);
+const holder=$("posts");holder.replaceChildren();
+for(const {p,items} of shown){const card=document.createElement("article");card.className="post";
+const h=document.createElement("h3");h.textContent=p.name;card.append(h);
+const meta=document.createElement("div");meta.className="meta";meta.textContent=items.length+" affectation(s) affichée(s)";card.append(meta);
+for(const a of items){const line=document.createElement("div");line.className="assignment";
+const name=document.createElement("b");name.textContent=a.name;line.append(name);
+const detail=document.createElement("span");detail.textContent=[a.subpost,a.time].filter(Boolean).join(" · ");line.append(detail);card.append(line)}holder.append(card)}
+if(!shown.length){const e=document.createElement("div");e.className="empty";e.textContent=posts.length?"Aucun résultat.":"Aucune donnée chargée.";holder.append(e)}
+$("resultCount").textContent=shown.length+" poste(s) · "+shown.reduce((n,x)=>n+x.items.length,0)+" affectation(s) correspondant aux filtres.";
+}
+$("search").addEventListener("input",render);$("postFilter").addEventListener("change",render);
+$("reset").addEventListener("click",()=>{$("search").value="";$("postFilter").value="";render()});
+$("connect").addEventListener("click",async()=>{
+const url=$("endpoint").value.trim();if(!/^https:\/\/script\.google\.com\/macros\/s\//.test(url)){setStatus("Saisissez une URL HTTPS Google Apps Script valide.","bad");return}
+$("connect").disabled=true;setStatus("Connexion au connecteur en cours…");
+try{const response=await fetch(url,{redirect:"follow",credentials:"omit",cache:"no-store"});if(!response.ok)throw Error("HTTP "+response.status);
+const json=await response.json();const parsed=parse(json);dataset=parsed;render();setStatus("Connexion réussie. Données chargées en mémoire, avec affichage des identités au format prénom + initiale.","good")}
+catch(e){setStatus("Connexion non validée : "+e.message+". Un blocage CORS ou un format de réponse différent est possible.","bad")}
+finally{$("connect").disabled=false}
+});
+render();
+</script></body></html>
